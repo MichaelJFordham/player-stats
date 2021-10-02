@@ -1,0 +1,25 @@
+.container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-height: 100vh;
+}
+
+.player-info-container {
+  width: 300px;
+}
+
+.player-info-container select {
+  width: 100%;
+  padding: 4px;
+  font-size: 18px;
+  background-color: #EAEAEA;
+  border: none;
+}
+/*# sourceMappingURL=styles.css.map */
