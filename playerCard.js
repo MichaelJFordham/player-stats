@@ -39,11 +39,15 @@ template.innerHTML = `
             font-size: 14px;
         }
 
-        .club-crest {
+        #club-crest {
+            background: url('./assets/badges_sprite.png');
+            background-size: 1200%;
             height: 80px;
             width: 80px;
-            border-radius: 50%;
-            background-color: green;
+            max-height: 80px;
+            max-width: 80px;
+            background-size: 1200%;
+            border-radius: 40px;
             margin-top: -40px;
         }
 
@@ -77,7 +81,7 @@ template.innerHTML = `
                     <p class="player-position"></p>
                 </div>
                 
-                <img class="club-crest" src="./assets/badges_sprite.png" alt="">
+                <div id="club-crest" role="img" alt=""></div>
             </div>
 
             <table>
@@ -134,9 +138,15 @@ class PlayerCard extends HTMLElement {
       ".player-position"
     ).innerText = `${personData.player.info.positionInfo}`;
 
+    // Sets the club crest sprite as the background image
+    var clubCrest = this.shadowRoot.querySelector("#club-crest");
+    clubCrest.style.backgroundPosition = this.getClubLogoPosition(
+      Number(personData.player.currentTeam.id)
+    );
+
     // Sets the club crest alt text
     this.shadowRoot.querySelector(
-      ".club-crest"
+      "#club-crest"
     ).alt = `${personData.player.currentTeam.name}'s club crest.`;
   }
 
@@ -146,6 +156,26 @@ class PlayerCard extends HTMLElement {
 
   attributeChangedCallback(attrName, oldVal, newVal) {
     this.person = JSON.parse(newVal);
+  }
+
+  // Returns the correct background image position based on the club ID
+  getClubLogoPosition(clubId) {
+    if (clubId === 26) {
+      // Leicester
+      return "0 0";
+    } else if (clubId === 1) {
+      // Arsenal
+      return "-80px -80px";
+    } else if (clubId === 12) {
+      // Man Utd
+      return "-441px -585px";
+    } else if (clubId === 11) {
+      // Man City
+      return "-640px -560px";
+    } else if (clubId === 21) {
+      // Spurs
+      return "-390px -781px";
+    }
   }
 }
 
