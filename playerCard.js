@@ -77,7 +77,7 @@ template.innerHTML = `
                     <p class="player-position"></p>
                 </div>
                 
-                <img class="club-crest" src="" alt="">
+                <img class="club-crest" src="./assets/badges_sprite.png" alt="">
             </div>
 
             <table>
@@ -133,6 +133,11 @@ class PlayerCard extends HTMLElement {
     this.shadowRoot.querySelector(
       ".player-position"
     ).innerText = `${personData.player.info.positionInfo}`;
+
+    // Sets the club crest alt text
+    this.shadowRoot.querySelector(
+      ".club-crest"
+    ).alt = `${personData.player.currentTeam.name}'s club crest.`;
   }
 
   get person() {
