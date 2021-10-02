@@ -36,6 +36,7 @@ template.innerHTML = `
 
         .player-position {
             margin: 4px 0;
+            font-size: 14px;
         }
 
         .club-crest {
