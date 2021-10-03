@@ -14,11 +14,11 @@ Click the 'Go Live' button at in the bar at the bottom of the screen to automati
 
 # Notes on build
 
-The app fetches the JSON file provided in the challenge from the local directory, and autopopulates the select input field with the player's names and sets each option with their ID. This is all done in the index.js file, which also controls the event for when a player selection is made.
+The app fetches the JSON file provided in the challenge from the local directory, and autopopulates the select input field with the players' names and sets each option with their ID. This is all done in the index.js file, which also controls the event for when a player selection is made.
 
 Once a player is picked, the player-card element is inserted into the DOM, and the player selected is passed in as an attribute.
 
-In the playerCard.js file, you'll see the PlayerCard is its own Web Component. Coming from a background using frameworks like Angular - and considering your points about reusability - it was clear that the player card area which shows their information could be reusable in the future (e.g. in a team of the year list). Therefore, I looked into building it as a Web Component. This was the first time I had used native web components before - I'm more experienced building these types of things with frameworks which simplify this process quite a bit.
+In the playerCard.js file, you'll see the PlayerCard is its own Web Component. Coming from a background using frameworks like Angular - and considering your points about reusability - it was clear that the player card area which shows their information could be reusable in the future (e.g. in a team of the year list). Therefore, I looked into building it as a Web Component. This was the first time I had used a native Web Component - I'm more experienced building these types of things with frameworks which simplify this process quite a bit.
 
 In the spirit of reusability, I wanted to scope styling of the player card component to just that component. Therefore, in-line CSS is used in that file rather than SASS. I could have opted for a SASS file - however it would've meant using the @import mechainism which could hamper the performance of the front-end: https://gtmetrix.com/avoid-css-import.html
 
