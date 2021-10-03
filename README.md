@@ -34,6 +34,12 @@ The sprite image is controlled by the getClubLogoPosition which takes the clubId
 
 The club crest element is set as a span with an aria-label acting as the alt text, as the sprite has to be set as a background (and an img element would display the src image over the top of the background if provided, or if no src was provided it would show alt text over the background). A span element was chosen based off of advice found here: http://www.davidmacd.com/blog/alternate-text-for-css-background-images.html
 
+# Semantics and accessibility
+
+Where possible, semantic HTML was preferred due to its naturally good behaviour for those who rely on assistive technology. For example, the select input was used for player selection. An img element was used when displaying the image of the player.
+
+The one key area where the natural semantic element could not be used was the club crest (for reasons mentioned above). In this case, I did my best to ensure that the image displayed in the background still supplied an accurate aria-label.
+
 # Testing
 
 The application was tested on Chrome, Firefox and Edge on a Mac.
