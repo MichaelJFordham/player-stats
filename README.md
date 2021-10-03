@@ -33,3 +33,9 @@ For stats in the table like goals per match and passes per minute, there are fun
 The sprite image is controlled by the getClubLogoPosition which takes the clubId as a parameter. Depending on the club, different coordinates will be passed back which will line the relevant club's crest up with the size of the element.
 
 The club crest element is set as a span with an aria-label acting as the alt text, as the sprite has to be set as a background (and an img element would display the src image over the top of the background if provided, or if no src was provided it would show alt text over the background). A span element was chosen based off of advice found here: http://www.davidmacd.com/blog/alternate-text-for-css-background-images.html
+
+# Testing
+
+The application was tested on Chrome, Firefox and Edge on a Mac.
+
+Accessibility was tested automatically via Google Lighthouse, and manually via the in-built screen reader tool VoiceOver.
