@@ -103,7 +103,7 @@ template.innerHTML = `
                 </tr>
                 <tr>
                     <td class="table-label">Passes per minute</td>
-                    <td id="pass-per-match-data" class="table-data"></td>
+                    <td id="pass-per-min-data" class="table-data"></td>
                 </tr>
             </table>
 
@@ -181,7 +181,15 @@ class PlayerCard extends HTMLElement {
       this.calculateGoalsPerMatch(
         this.getPlayerStat(personData.stats, "goals"),
         this.getPlayerStat(personData.stats, "appearances")
-      ); // Maybe do this based on mins / 90
+      );
+
+    // Sets the passes per minute data
+    this.shadowRoot.querySelector("#pass-per-min-data").innerText =
+      this.calculatePassesPerMin(
+        this.getPlayerStat(personData.stats, "fwd_pass"),
+        this.getPlayerStat(personData.stats, "backward_pass"),
+        this.getPlayerStat(personData.stats, "mins_played")
+      );
   }
 
   get person() {
@@ -230,7 +238,7 @@ class PlayerCard extends HTMLElement {
   // Returns the number of goals the player scored per match
   calculateGoalsPerMatch(goals, noOfMatches) {
     if (goals !== 0 && noOfMatches !== 0) {
-      return Math.round(((goals / noOfMatches) * 100) / 100);
+      return Math.round((goals / noOfMatches) * 100) / 100;
     } else {
       return 0;
     }
@@ -241,7 +249,7 @@ class PlayerCard extends HTMLElement {
     var totalPasses = forwardPasses + backwardPasses;
 
     if (totalPasses !== 0 && minsPlayed !== 0) {
-      return totalPasses / minsPlayed;
+      return Math.round((totalPasses / minsPlayed) * 100) / 100;
     } else {
       return 0;
     }
