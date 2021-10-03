@@ -44,8 +44,8 @@ template.innerHTML = `
             background-size: 1200%;
             height: 80px;
             width: 80px;
-            max-height: 80px;
-            max-width: 80px;
+            min-height: 80px;
+            min-width: 80px;
             background-size: 1200%;
             border-radius: 40px;
             margin-top: -40px;
@@ -87,11 +87,23 @@ template.innerHTML = `
             <table>
                 <tr>
                     <td class="table-label">Appearances</td>
-                    <td class="table-data">XX</td>
+                    <td id="appearance-data" class="table-data"></td>
                 </tr>
                 <tr>
-                    <td class="table-label">Appearances</td>
-                    <td class="table-data">XX</td>
+                    <td class="table-label">Goals</td>
+                    <td id="goal-data" class="table-data"></td>
+                </tr>
+                <tr>
+                    <td class="table-label">Assists</td>
+                    <td id="assist-data" class="table-data"></td>
+                </tr>
+                <tr>
+                    <td class="table-label">Goals per match</td>
+                    <td id="goal-per-match-data" class="table-data"></td>
+                </tr>
+                <tr>
+                    <td class="table-label">Passes per minute</td>
+                    <td id="pass-per-match-data" class="table-data"></td>
                 </tr>
             </table>
 
@@ -101,6 +113,7 @@ template.innerHTML = `
 
 // Creates custom element which could be reused elsewhere if needed
 class PlayerCard extends HTMLElement {
+  // Ensures the person attribute is being observed for changes
   static get observedAttributes() {
     return ["person"];
   }
@@ -145,15 +158,37 @@ class PlayerCard extends HTMLElement {
     );
 
     // Sets the club crest alt text
-    this.shadowRoot.querySelector(
-      "#club-crest"
-    ).alt = `${personData.player.currentTeam.name}'s club crest.`;
+    // this.shadowRoot.querySelector(
+    //   "#club-crest"
+    // ).alt = `${personData.player.currentTeam.name}'s club crest.`;
+
+    // Sets the appearance data
+    this.shadowRoot.querySelector("#appearance-data").innerText =
+      this.getPlayerStat(personData.stats, "appearances");
+
+    // Sets the goal data
+    this.shadowRoot.querySelector("#goal-data").innerText = this.getPlayerStat(
+      personData.stats,
+      "goals"
+    );
+
+    // Sets the assist data
+    this.shadowRoot.querySelector("#assist-data").innerText =
+      this.getPlayerStat(personData.stats, "goal_assist");
+
+    // Sets the goals per match data
+    this.shadowRoot.querySelector("#goal-per-match-data").innerText =
+      this.calculateGoalsPerMatch(
+        this.getPlayerStat(personData.stats, "goals"),
+        this.getPlayerStat(personData.stats, "appearances")
+      ); // Maybe do this based on mins / 90
   }
 
   get person() {
     return this.getAttribute("person");
   }
 
+  // Runs when the person attribute that is being passed into the custom player-card element is changed
   attributeChangedCallback(attrName, oldVal, newVal) {
     this.person = JSON.parse(newVal);
   }
@@ -168,13 +203,47 @@ class PlayerCard extends HTMLElement {
       return "-80px -80px";
     } else if (clubId === 12) {
       // Man Utd
-      return "-441px -585px";
+      return "-480px -640px";
     } else if (clubId === 11) {
       // Man City
       return "-640px -560px";
     } else if (clubId === 21) {
       // Spurs
-      return "-390px -781px";
+      return "-399px -800px";
+    }
+  }
+
+  // Returns the relevant stat's value based on the label of the stat required
+  getPlayerStat(stats, statLabel) {
+    for (let i = 0; i < stats.length; i++) {
+      const stat = stats[i];
+
+      if (stat.name === statLabel) {
+        return stat.value;
+      }
+    }
+
+    // If the stat could not be found, return zero
+    return 0;
+  }
+
+  // Returns the number of goals the player scored per match
+  calculateGoalsPerMatch(goals, noOfMatches) {
+    if (goals !== 0 && noOfMatches !== 0) {
+      return Math.round(((goals / noOfMatches) * 100) / 100);
+    } else {
+      return 0;
+    }
+  }
+
+  // Returns the number of passes a player made per minute
+  calculatePassesPerMin(forwardPasses, backwardPasses, minsPlayed) {
+    var totalPasses = forwardPasses + backwardPasses;
+
+    if (totalPasses !== 0 && minsPlayed !== 0) {
+      return totalPasses / minsPlayed;
+    } else {
+      return 0;
     }
   }
 }
