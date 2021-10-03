@@ -40,6 +40,7 @@ template.innerHTML = `
         }
 
         #club-crest {
+            display: inline-block;
             background: url('./assets/badges_sprite.png');
             background-size: 1200%;
             height: 80px;
@@ -58,8 +59,10 @@ template.innerHTML = `
         }
 
         table tr {
-            background-color: white;
+            background-color: #EAEAEA;
             color: #2F0C34;
+            -webkit-box-shadow: 0px 2px 15px 3px rgba(0,0,0,0.3); 
+            box-shadow: 0px 2px 15px 3px rgba(0,0,0,0.3);
         }
 
         table td {
@@ -72,7 +75,7 @@ template.innerHTML = `
         }
     </style>
 
-    <div class="player-info">
+    <div class="player-info" role="region" aria-live="polite">
         <img class="player-face" src="" alt="">
         <div class="player-content">
             <div class="flex-container">
@@ -81,7 +84,9 @@ template.innerHTML = `
                     <p class="player-position"></p>
                 </div>
                 
-                <div id="club-crest" role="img" alt=""></div>
+                <div>
+                    <span id="club-crest" role="img" aria-label=""></span>
+                </div>
             </div>
 
             <table>
@@ -126,8 +131,6 @@ class PlayerCard extends HTMLElement {
     });
 
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-
-    console.log(this.getAttribute("playerName"));
   }
 
   set person(personData) {
@@ -157,10 +160,8 @@ class PlayerCard extends HTMLElement {
       Number(personData.player.currentTeam.id)
     );
 
-    // Sets the club crest alt text
-    // this.shadowRoot.querySelector(
-    //   "#club-crest"
-    // ).alt = `${personData.player.currentTeam.name}'s club crest.`;
+    // Sets the club crest aria-label text (a substitute for the alt text as the element rendering the crest is a span rather than img)
+    clubCrest.ariaLabel = `${personData.player.currentTeam.name}'s club crest.`;
 
     // Sets the appearance data
     this.shadowRoot.querySelector("#appearance-data").innerText =

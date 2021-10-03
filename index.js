@@ -26,7 +26,6 @@ function populateSelectOptions(playerData) {
 // Returns the currently selected player from the select element
 function setSelectedPlayer(playerSelectElement) {
   selectedPerson = getPlayerInformation(Number(playerSelectElement.value)); // Casts the selected value to a Number otherwise it is passed in as a string, which fails the strict equality check (===)
-  console.log(selectedPerson);
 
   // Adds player-card component to the DOM
   var playerCardContainer = document.getElementById("player-card-container");

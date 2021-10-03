@@ -1,5 +1,5 @@
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   padding: 0;
   margin: 0;
 }
@@ -9,11 +9,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   min-height: 100vh;
 }
 
@@ -23,9 +23,9 @@
 
 .player-info-container select {
   width: 100%;
-  padding: 4px;
+  padding: 8px 12px;
   font-size: 18px;
-  background-color: #EAEAEA;
+  background-color: #eaeaea;
   border: none;
 }
 /*# sourceMappingURL=styles.css.map */
